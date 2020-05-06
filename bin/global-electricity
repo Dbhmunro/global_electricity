@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require './lib/global_electricity'
+
+GlobalElectricity::CLI.new.call
