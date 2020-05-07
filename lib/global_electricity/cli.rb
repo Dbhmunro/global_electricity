@@ -10,7 +10,7 @@ class GlobalElectricity::CLI
     
     def scrape
         puts "Please wait while we collect your data..."
-        # GlobalElectricity::Scrape.new
+        Scrape.new
     end
 
     def welcome

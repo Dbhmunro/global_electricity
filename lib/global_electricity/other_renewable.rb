@@ -1,0 +1,2 @@
+class GlobalElectricity::OtherRenewable
+end
