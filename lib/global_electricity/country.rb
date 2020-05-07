@@ -18,7 +18,13 @@ class Country
     end
 
     def self.country_names
-        self.all.map(&:name).each { |e| e.downcase!}
+        self.all.map(&:name).map { |e| e.downcase}
         # binding.pry
+    end
+
+    def self.present_country_list
+        self.all.map(&:name).each_with_index do |country, index|
+            puts "#{index + 1}. - #{country}"
+        end
     end
 end

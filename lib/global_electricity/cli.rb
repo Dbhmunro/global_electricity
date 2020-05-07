@@ -30,10 +30,10 @@ class GlobalElectricity::CLI
             #{Country.select_country("World").other_renewable_use} other renewable sources
             
         HEREDOC
+        @input = nil
     end
 
     def menu
-        @input = nil
         while @input != "exit"
             puts <<~HEREDOC
                
@@ -62,9 +62,9 @@ class GlobalElectricity::CLI
             when "5"
                 puts "Electricity from other renewable sources"
             when "6"
-                puts "See statistics for a country"
-            # when "exit"
-            #     print "Goodbye. "
+                country_list
+            when "exit"
+                puts "Goodbye."
             else
                 puts "Invalid input"
                 welcome
@@ -76,7 +76,7 @@ class GlobalElectricity::CLI
         while @input != "exit"
             puts <<~HEREDOC
                 
-                Main menu choices:
+                Menu choices:
                 - 1. View sorted by urban area electrification (highest to lowest)
                 - 2. View sorted by rural area electrification (highest to lowest)
                 - Type a coutry name to see its full details
@@ -91,9 +91,64 @@ class GlobalElectricity::CLI
             when "2"
                 puts "View sorted by rural area electrification"
             when *Country.country_names
-                puts "Details for specific country"
+                country_details
             when "0"
                 menu
+            when "exit"
+                puts "Goodbye."
+            else
+                puts "Invalid input"
+            end
+        end
+    end
+
+    def country_list
+        while @input != "exit"
+            Country.present_country_list
+            puts <<~HEREDOC
+               
+                Of the countries listed, please enter the number or name for the country of interest
+                Or enter 0 for the main menu
+
+                Your selection:
+            HEREDOC
+            @input = gets.strip.downcase
+            # binding.pry
+            if  (Country.country_names.include?(@input) || @input.to_i.between?(1, 217))
+                country_details
+            elsif @input == "0"
+                menu
+            elsif @input == "exit"
+                puts "Goodbye."
+            else
+                puts "Please enter a valid selection."
+                sleep 1.5
+            end
+        end
+    end
+
+    def country_details
+        while @input != "exit"
+            puts "Details for specific country"
+            puts <<~HEREDOC
+               
+            Menu choices:
+            - 1. View list of countries
+            - Type another coutry name to see its full details
+            - 0. Return to main menu
+
+                Your selection:
+            HEREDOC
+            @input = gets.strip.downcase
+            case @input
+            when "1"
+                country_list
+            when *Country.country_names
+                country_details
+            when "0"
+                menu
+            when "exit"
+                puts "Goodbye."
             else
                 puts "Invalid input"
             end

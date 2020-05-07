@@ -76,7 +76,7 @@ class Scrape
             #     puts row.css("a").text
             end
         end
-        binding.pry
+        # binding.pry
 
         # electricity_access_data = {}
         # access_doc.css("div#field-electricity-access").each do |access|
