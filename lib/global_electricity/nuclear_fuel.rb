@@ -1,2 +1,2 @@
-class GlobalElectricity::NuclearFuel
+module NuclearFuel
 end

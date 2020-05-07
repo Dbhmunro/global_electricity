@@ -1,2 +1,2 @@
-class GlobalElectricity::Hydroelectric
+module Hydroelectric
 end

@@ -1,2 +1,2 @@
-class GlobalElectricity::OtherRenewable
+module OtherRenewable
 end

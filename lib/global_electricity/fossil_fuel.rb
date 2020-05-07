@@ -1,2 +1,2 @@
-class GlobalElectricity::FossilFuel
+module FossilFuel
 end
