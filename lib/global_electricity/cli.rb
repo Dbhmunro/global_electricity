@@ -70,7 +70,8 @@ class GlobalElectricity::CLI
             when "exit"
                 puts "Goodbye."
             else
-                puts "Invalid input"
+                puts "Please enter a valid selection."
+                sleep 1.5
             end
         end
     end
@@ -80,9 +81,9 @@ class GlobalElectricity::CLI
         while @input != "exit"
             case screen
             when "1"
+                # system "clear"
+                Country.access_alphabetical_sort
                 puts <<~HEREDOC
-                    
-                    Countries listed in alphabetical order
                     
                     Menu choices:
                     - 1. View sorted by access to electricity (highest to lowest)
@@ -111,12 +112,12 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "2"
+                Country.access_population_sort
                 puts <<~HEREDOC
-                    
-                    View sorted by access to electricity (highest to lowest)
                     
                     Menu choices:
                     - 1. View sorted alphabetically
@@ -145,13 +146,13 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "3"
+                Country.access_urban_sort
                 puts <<~HEREDOC
                     
-                    View sorted by urban area electrification (highest to lowest)
-                        
                     Menu choices:
                     - 1. View sorted alphabetically
                     - 2. View sorted by access to electricity (highest to lowest)
@@ -179,13 +180,13 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "4"
+                Country.access_rural_sort
                 puts <<~HEREDOC
                     
-                    View sorted by rural area electrification (highest to lowest)
-                            
                     Menu choices:
                     - 1. View sorted alphabetically
                     - 2. View sorted by access to electricity (highest to lowest)
@@ -213,7 +214,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             end
         end
@@ -251,7 +253,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "2"
                 puts <<~HEREDOC
@@ -281,7 +284,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "3"
                 puts <<~HEREDOC
@@ -311,7 +315,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             end
         end
@@ -349,7 +354,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "2"
                 puts <<~HEREDOC
@@ -379,7 +385,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "3"
                 puts <<~HEREDOC
@@ -409,7 +416,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             end
         end
@@ -447,7 +455,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "2"
                 puts <<~HEREDOC
@@ -477,7 +486,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "3"
                 puts <<~HEREDOC
@@ -507,7 +517,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             end
         end
@@ -545,7 +556,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "2"
                 puts <<~HEREDOC
@@ -575,7 +587,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             when "3"
                 puts <<~HEREDOC
@@ -605,7 +618,8 @@ class GlobalElectricity::CLI
                 when "exit"
                     puts "Goodbye."
                 else
-                    puts "Invalid input"
+                    puts "Please enter a valid selection."
+                sleep 1.5
                 end
             end
         end
@@ -623,7 +637,7 @@ class GlobalElectricity::CLI
             HEREDOC
             @input = gets.strip.downcase
             # binding.pry
-            if  (Country.country_names.include?(@input) || @input.to_i.between?(1, 217))
+            if  (Country.country_names.include?(@input) || @input.to_i.between?(1, 216))
                 country_details
             elsif @input == "0"
                 menu
@@ -659,7 +673,8 @@ class GlobalElectricity::CLI
             when "exit"
                 puts "Goodbye."
             else
-                puts "Invalid input"
+                puts "Please enter a valid selection."
+                sleep 1.5
             end
         end
     end

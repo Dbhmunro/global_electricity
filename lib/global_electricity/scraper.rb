@@ -33,7 +33,12 @@ class Scrape
                 # country population without electricity = 0
             else
                 country.urban_electrification = electricity_access_data["electrification - urban areas:"]
-                country.rural_electrification = electricity_access_data["electrification - rural areas:"]
+                if electricity_access_data["electrification - rural areas:"] == nil
+                    country.rural_electrification = ((country.population_electrification.to_f*2) - country.urban_electrification.to_f)
+                    country.rural_electrification = country.rural_electrification.to_s + "%"
+                else
+                    country.rural_electrification = electricity_access_data["electrification - rural areas:"]
+                end
                 # if (electricity_access_data["population without electricity:"] == nil)
                     # look up country popluation and multiply against population_electrification
                 #else use the value to fill in country.population_without _electricity
