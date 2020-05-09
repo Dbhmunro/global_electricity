@@ -1,29 +1,25 @@
 require_relative './country.rb'
 
-module ElectricityAccess
+module ElectricitySources
     module ClassMethods
         # these methods will only work in the Country class
 
-        # def self.access_electricity
-        #     self.all_without_world.collect do |country|
-        #     end
-        # end
-
-        def access_alphabetical_sort
+        def sources_alphabetical_sort
             collection = []
             self.all_without_world.sort_by(&:name).collect do |country|
                 row = []
                 row << country.name
-                row << country.population_electrification
-                row << country.urban_electrification
-                row << country.rural_electrification
+                row << country.fossil_fuel
+                row << country.nuclear_fuel
+                row << country.hydroelectric
+                row << country.other_renewable
                 collection << row
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
-            puts "------------------------------------------------------------"
+            puts "                      Sources of electricity generation"
+            puts " Fossil Fuel       Nuclear       Hydroelectric       Other Renewables       Country "
+            puts "-------------------------------------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
                 if row[1].length == 2
@@ -55,25 +51,36 @@ module ElectricityAccess
                 elsif row[3].length == 5
                     print "         "
                 end
+                print "#{row[4]}"
+                if row[4].length == 2
+                    print "            "
+                elsif row[4].length == 3
+                    print "           "
+                elsif row[4].length == 4
+                    print "          "
+                elsif row[4].length == 5
+                    print "         "
+                end
                     puts "#{row[0]}"
             end
         end
 
-        def access_population_sort #need to use to_f?
+        def sources_population_sort
             collection = []
-            self.all_without_world.sort_by { |country| country.population_electrification.to_i }.reverse.collect do |country|
+            self.all_without_world.sort_by { |country| country.population_electrification.to_f }.reverse.collect do |country|
                 row = []
                 row << country.name
-                row << country.population_electrification
-                row << country.urban_electrification
-                row << country.rural_electrification
+                row << country.fossil_fuel
+                row << country.nuclear_fuel
+                row << country.hydroelectric
+                row << country.other_renewable
                 collection << row
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
-            puts "------------------------------------------------------------"
+            puts "                      Sources of electricity generation"
+            puts " Fossil Fuel       Nuclear       Hydroelectric       Other Renewables       Country "
+            puts "-------------------------------------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
                 if row[1].length == 2
@@ -105,25 +112,36 @@ module ElectricityAccess
                 elsif row[3].length == 5
                     print "         "
                 end
+                print "#{row[4]}"
+                if row[4].length == 2
+                    print "            "
+                elsif row[4].length == 3
+                    print "           "
+                elsif row[4].length == 4
+                    print "          "
+                elsif row[4].length == 5
+                    print "         "
+                end
                     puts "#{row[0]}"
             end
         end
 
-        def access_urban_sort
+        def sources_urban_sort
             collection = []
-            self.all_without_world.sort_by { |country| country.urban_electrification.to_i }.reverse.collect do |country|
+            self.all_without_world.sort_by { |country| country.urban_electrification.to_f }.reverse.collect do |country|
                 row = []
                 row << country.name
-                row << country.population_electrification
-                row << country.urban_electrification
-                row << country.rural_electrification
+                row << country.fossil_fuel
+                row << country.nuclear_fuel
+                row << country.hydroelectric
+                row << country.other_renewable
                 collection << row
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
-            puts "------------------------------------------------------------"
+            puts "                      Sources of electricity generation"
+            puts " Fossil Fuel       Nuclear       Hydroelectric       Other Renewables       Country "
+            puts "-------------------------------------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
                 if row[1].length == 2
@@ -155,25 +173,36 @@ module ElectricityAccess
                 elsif row[3].length == 5
                     print "         "
                 end
+                print "#{row[4]}"
+                if row[4].length == 2
+                    print "            "
+                elsif row[4].length == 3
+                    print "           "
+                elsif row[4].length == 4
+                    print "          "
+                elsif row[4].length == 5
+                    print "         "
+                end
                     puts "#{row[0]}"
             end
         end
 
-        def access_rural_sort
+        def sources_rural_sort
             collection = []
-            self.all_without_world.sort_by { |country| country.rural_electrification.to_i }.reverse.collect do |country|
+            self.all_without_world.sort_by { |country| country.rural_electrification.to_f }.reverse.collect do |country|
                 row = []
                 row << country.name
-                row << country.population_electrification
-                row << country.urban_electrification
-                row << country.rural_electrification
+                row << country.fossil_fuel
+                row << country.nuclear_fuel
+                row << country.hydroelectric
+                row << country.other_renewable
                 collection << row
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
-            puts "------------------------------------------------------------"
+            puts "                      Sources of electricity generation"
+            puts " Fossil Fuel       Nuclear       Hydroelectric       Other Renewables       Country "
+            puts "-------------------------------------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
                 if row[1].length == 2
@@ -205,14 +234,18 @@ module ElectricityAccess
                 elsif row[3].length == 5
                     print "         "
                 end
+                print "#{row[4]}"
+                if row[4].length == 2
+                    print "            "
+                elsif row[4].length == 3
+                    print "           "
+                elsif row[4].length == 4
+                    print "          "
+                elsif row[4].length == 5
+                    print "         "
+                end
                     puts "#{row[0]}"
             end
         end
-
-        # def access_print #should only be called on methods that create collections
-        #     self.access_alphabetical_sort.each do |row|
-        #         puts "#{row}"
-        #     end
-        # end
     end
 end

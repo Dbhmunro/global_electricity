@@ -1,8 +1,8 @@
-require_relative 'lib/global_electricity/version'
+require_relative 'lib/global_access/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "global_electricity"
-  spec.version       = GlobalElectricity::VERSION
+  spec.name          = "global_access"
+  spec.version       = GlobalAccess::VERSION
   spec.authors       = ["dbhmunro"]
   spec.email         = ["dbhmunro@gmail.com"]
 
