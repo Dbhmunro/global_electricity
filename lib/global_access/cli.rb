@@ -17,12 +17,15 @@ class CLI
 
     def welcome
         puts <<~HEREDOC
+
             Welcome to Global Access to Technology Statistics
+
             ~Your statistical data on internet, energy, and economy
             Finding the countries that have larger percentages of internet and electricity access
             and help you determine the primary economic sector to target for your web application development
             or find the countries with largest percentage of economic sector 
-            With the energy data you can make informed decisions on green markets if you wish
+            With the energy data you can make informed decisions on engaging with green markets
+            Looking for a target market for renewable energy companies looking for markets with high internet access and low current renewable energy use
             
 
             
@@ -41,21 +44,23 @@ class CLI
         @input = nil
     end
 
-    def menu #nice to have, add ability for partial country search, starts with or contains
+    def menu
+        #nice to have, add ability for partial country search, starts with or contains
+        #nice to have, system "clear" between lists, but not when calling up specific country details
         while @input != "exit"
             puts <<~HEREDOC
                
-                Main menu choices:
-                - 1. Access to internet
-                - 2. Access to electricity
-                - 3. Sources of electricity
-                - 4. GDP composition by sector
-                - 5. Analysis - population with internet and energy
-                - 6. Analysis - aggregating economic data with population access to internet
-                - 7. Find country statistics
-                At any time type exit to quit the program
+                Main Select Menu - List of Countries with:
+                - 1. Population Access to Internet
+                - 2. Population Access to Electricity
+                - 3. Electricity Production, % by Source Energy
+                - 4. Gross Domestic Product (GDP), % by Sector
+                - 5. Green Electricity Production and Internet Access
+                - 6. Internet Access Distribution by GDP Sector
+                - 7. All Statistics - Search by Country
+                At any time type EXIT to quit the program
 
-                Your selection:
+                Your Selection:
             HEREDOC
             @input = gets.strip.downcase
             case @input
@@ -70,7 +75,7 @@ class CLI
                 puts "GDP composition"
                 #gdp_composition
             when "5"
-                puts "Analysis - population with access to technological advances"
+                puts "Analysis - internet and renewable power"
             when "6"
                 puts "Analysis - economic production with internet access"
             when "7"
@@ -79,41 +84,42 @@ class CLI
                 puts "Goodbye."
             else
                 puts "Please enter a valid selection."
-                sleep 1.5
+                sleep 1.2
             end
         end
     end
 
-    def access_to_electricity #keep the menu options the same, but just add qualifier that menu choice is current
-        #change menu so that it only shows top 20, and then on selecting the same menu again, you can see the full list of countries
+    def access_to_electricity
         screen = "1"
         while @input != "exit"
             case screen
-            when "1"
+            when "1" #short list alphabetical country name ascending
                 # system "clear"
-                Country.access_alphabetical_sort
+                Country.electricity_access_alphabetical_sort_short
                 puts <<~HEREDOC
                     
-                    Menu choices:
-                    - 1. View sorted by total access to electricity (highest to lowest)
-                    - 2. View sorted by urban area electrification (highest to lowest)
-                    - 3. View sorted by rural area electrification (highest to lowest)
-                    - Type a coutry name to see its full details
-                    - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. CURRENT VIEW - Select for Full List
+                    - 2. Population Access to Electricity - Descending
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. Rural Area Access to Electricity - Descending
+                    - 0. Return to Main Menu
 
-                    Your selection:
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
                 HEREDOC
                 @input = gets.strip.downcase
                 case @input
                 when "1"
-                    puts "View sorted by total access to electricity (highest to lowest)"
                     screen = "2"
                 when "2"
-                    puts "View sorted by urban area electrification (highest to lowest)"
                     screen = "3"
                 when "3"
-                    puts "View sorted by rural area electrification (highest to lowest)"
-                    screen = "4"
+                    screen = "5"
+                when "4"
+                    screen = "7"
                 when *Country.country_names
                     country_details
                 when "0"
@@ -122,32 +128,35 @@ class CLI
                     puts "Goodbye."
                 else
                     puts "Please enter a valid selection."
-                sleep 1.5
+                    sleep 1.2
                 end
-            when "2"
-                Country.access_population_sort
+            when "2" #full list alphabetical country name ascending
+                # system "clear"
+                Country.electricity_access_alphabetical_sort
                 puts <<~HEREDOC
                     
-                    Menu choices:
-                    - 1. View sorted alphabetically
-                    - 2. View sorted by urban area electrification (highest to lowest)
-                    - 3. View sorted by rural area electrification (highest to lowest)
-                    - Type a coutry name to see its full details
+                    Enter Number to Sort Countries by:
+                    - 1. CURRENT VIEW - Select for Top 20 List
+                    - 2. Population Access to Electricity - Descending
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. Rural Area Access to Electricity - Descending
                     - 0. Return to main menu
 
-                    Your selection:
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
                 HEREDOC
                 @input = gets.strip.downcase
                 case @input
                 when "1"
-                    puts "View sorted alphabetically"
                     screen = "1"
                 when "2"
-                    puts "View sorted by urban area electrification (highest to lowest)"
                     screen = "3"
                 when "3"
-                    puts "View sorted by rural area electrification (highest to lowest)"
-                    screen = "4"
+                    screen = "5"
+                when "4"
+                    screen = "7"
                 when *Country.country_names
                     country_details
                 when "0"
@@ -156,32 +165,34 @@ class CLI
                     puts "Goodbye."
                 else
                     puts "Please enter a valid selection."
-                sleep 1.5
+                    sleep 1.2
                 end
             when "3"
-                Country.access_urban_sort
+                Country.electricity_access_population_sort_short
                 puts <<~HEREDOC
                     
-                    Menu choices:
-                    - 1. View sorted alphabetically
-                    - 2. View sorted by total access to electricity (highest to lowest)
-                    - 3. View sorted by rural area electrification (highest to lowest)
-                    - Type a coutry name to see its full details
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. CURRENT VIEW - Select for Full List
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. Rural Area Access to Electricity - Descending
                     - 0. Return to main menu
 
-                    Your selection:
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
                 HEREDOC
                 @input = gets.strip.downcase
                 case @input
                 when "1"
-                    puts "View sorted alphabetically"
                     screen = "1"
                 when "2"
-                    puts "View sorted by total access to electricity (highest to lowest)"
-                    screen = "2"
-                when "3"
-                    puts "View sorted by rural area electrification (highest to lowest)"
                     screen = "4"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
                 when *Country.country_names
                     country_details
                 when "0"
@@ -190,32 +201,34 @@ class CLI
                     puts "Goodbye."
                 else
                     puts "Please enter a valid selection."
-                sleep 1.5
+                    sleep 1.2
                 end
             when "4"
-                Country.access_rural_sort
+                Country.electricity_access_population_sort
                 puts <<~HEREDOC
                     
-                    Menu choices:
-                    - 1. View sorted alphabetically
-                    - 2. View sorted by access to electricity (highest to lowest)
-                    - 3. View sorted by urban area electrification (highest to lowest)
-                    - Type a coutry name to see its full details
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. CURRENT VIEW - Select for Top 20 List
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. Rural Area Access to Electricity - Descending
                     - 0. Return to main menu
 
-                    Your selection:
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
                 HEREDOC
                 @input = gets.strip.downcase
                 case @input
                 when "1"
-                    puts "View sorted alphabetically"
                     screen = "1"
                 when "2"
-                    puts "View sorted by access to electricity (highest to lowest)"
-                    screen = "2"
-                when "3"
-                    puts "View sorted by urban area electrification (highest to lowest)"
                     screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
                 when *Country.country_names
                     country_details
                 when "0"
@@ -224,415 +237,555 @@ class CLI
                     puts "Goodbye."
                 else
                     puts "Please enter a valid selection."
-                sleep 1.5
+                    sleep 1.2
+                end
+            when "5"
+                Country.electricity_access_urban_sort_short
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Population Access to Electricity - Descending
+                    - 3. CURRENT VIEW - Select for Full List
+                    - 4. Rural Area Access to Electricity - Descending
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "6"
+                when "4"
+                    screen = "7"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "6"
+                Country.electricity_access_urban_sort
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Population Access to Electricity - Descending
+                    - 3. CURRENT VIEW - Select for Top 20 List
+                    - 4. Rural Area Access to Electricity - Descending
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "7"
+                Country.electricity_access_rural_sort_short
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Population Access to Electricity - Descending
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. CURRENT VIEW - Select for Full List
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "8"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "8"
+                Country.electricity_access_rural_sort
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Population Access to Electricity - Descending
+                    - 3. Urban Area Access to Electricity - Descending
+                    - 4. CURRENT VIEW - Select for Top 20 List
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2  
                 end
             end
         end
     end
 
-    # def fossil_fuel_electricity
-    #     screen = "1"
-    #     while @input != "exit"
-    #         case screen
-    #         when "1"
-    #             puts <<~HEREDOC
+    def sources_of_electricity
+        screen = "1"
+        while @input != "exit"
+            case screen
+            when "1" #short list alphabetical country name ascending
+                # system "clear"
+                Country.electricity_sources_alphabetical_sort_short
+                puts <<~HEREDOC
                     
-    #                 Countries listed in alphabetical order
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted lowest to highest
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. CURRENT VIEW - Select for Full List
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to Main Menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "2"
-    #             puts <<~HEREDOC
-                    
-    #                 Countries listed highest to lowest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted lowest to highest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "3"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "2"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "2" #full list alphabetical country name ascending
+                # system "clear"
+                Country.electricity_sources_alphabetical_sort
+                puts <<~HEREDOC
                     
-    #                 Countries listed lowest to highest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. CURRENT VIEW - Select for Top 20 List
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         end
-    #     end
-    # end
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    # def nuclear_fuel_electricity
-    #     screen = "1"
-    #     while @input != "exit"
-    #         case screen
-    #         when "1"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "3"
+                Country.electricity_sources_fossil_fuel_sort_short
+                puts <<~HEREDOC
                     
-    #                 Countries listed in alphabetical order
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted lowest to highest
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. CURRENT VIEW - Select for Full List
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "2"
-    #             puts <<~HEREDOC
-                    
-    #                 Countries listed highest to lowest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted lowest to highest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "3"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "4"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "4"
+                Country.electricity_sources_fossil_fuel_sort
+                puts <<~HEREDOC
                     
-    #                 Countries listed lowest to highest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. CURRENT VIEW - Select for Top 20 List
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         end
-    #     end
-    # end
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    # def hydroelectric_electricity
-    #     screen = "1"
-    #     while @input != "exit"
-    #         case screen
-    #         when "1"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "5"
+                Country.electricity_sources_nuclear_fuel_sort_short
+                puts <<~HEREDOC
                     
-    #                 Countries listed in alphabetical order
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted lowest to highest
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. CURRENT VIEW - Select for Full List
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "2"
-    #             puts <<~HEREDOC
-                    
-    #                 Countries listed highest to lowest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted lowest to highest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "3"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "6"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "6"
+                Country.electricity_sources_nuclear_fuel_sort
+                puts <<~HEREDOC
                     
-    #                 Countries listed lowest to highest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. CURRENT VIEW - Select for Top 20 List
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         end
-    #     end
-    # end
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    # def other_renewable_electricity
-    #     screen = "1"
-    #     while @input != "exit"
-    #         case screen
-    #         when "1"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "7"
+                Country.electricity_sources_hydroelectric_sort_short
+                puts <<~HEREDOC
                     
-    #                 Countries listed in alphabetical order
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted lowest to highest
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. CURRENT VIEW - Select for Full List
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "2"
-    #             puts <<~HEREDOC
-                    
-    #                 Countries listed highest to lowest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted lowest to highest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted lowest to highest"
-    #                 screen = "3"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         when "3"
-    #             puts <<~HEREDOC
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "8"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "8"
+                Country.electricity_sources_hydroelectric_sort
+                puts <<~HEREDOC
                     
-    #                 Countries listed lowest to highest
-                    
-    #                 Menu choices:
-    #                 - 1. View sorted highest to lowest
-    #                 - 2. View sorted alphabetically
-    #                 - Type a coutry name to see its full details
-    #                 - 0. Return to main menu
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. CURRENT VIEW - Select for Top 20 List
+                    - 5. Other Renewable Sources Electricity Generation - Descending
+                    - 0. Return to main menu
 
-    #                 Your selection:
-    #             HEREDOC
-    #             @input = gets.strip.downcase
-    #             case @input
-    #             when "1"
-    #                 puts "View sorted highest to lowest"
-    #                 screen = "2"
-    #             when "2"
-    #                 puts "View sorted alphabetically"
-    #                 screen = "1"
-    #             when *Country.country_names
-    #                 country_details
-    #             when "0"
-    #                 menu
-    #             when "exit"
-    #                 puts "Goodbye."
-    #             else
-    #                 puts "Please enter a valid selection."
-    #             sleep 1.5
-    #             end
-    #         end
-    #     end
-    # end
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2  
+                end
+            when "9"
+                Country.electricity_sources_other_renewable_sort_short
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. CURRENT VIEW - Select for Full List
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "8"
+                when "5"
+                    screen = "10"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2
+                end
+            when "10"
+                Country.electricity_sources_other_renewable_sort
+                puts <<~HEREDOC
+                    
+                    Enter Number to Sort Countries by:
+                    - 1. Country Name - Ascending
+                    - 2. Fossil Fuel Electricity Generation - Descending
+                    - 3. Nuclear Fuel Electricity Generation - Descending
+                    - 4. Hydroelectric Power Generation - Descending
+                    - 5. CURRENT VIEW - Select for Top 20 List
+                    - 0. Return to main menu
+
+                    To View All Statistics for a Country:
+                    - Type a Full Country Name
+
+                    Your Selection:
+                HEREDOC
+                @input = gets.strip.downcase
+                case @input
+                when "1"
+                    screen = "1"
+                when "2"
+                    screen = "3"
+                when "3"
+                    screen = "5"
+                when "4"
+                    screen = "7"
+                when "5"
+                    screen = "9"
+                when *Country.country_names
+                    country_details
+                when "0"
+                    menu
+                when "exit"
+                    puts "Goodbye."
+                else
+                    puts "Please enter a valid selection."
+                    sleep 1.2  
+                end
+            end
+        end
+    end
 
     def country_list
         while @input != "exit"
@@ -642,7 +795,7 @@ class CLI
                 Of the countries listed, please enter the number or name for the country of interest.
                 Or, enter 0 for the main menu.
 
-                Your selection:
+                Your Selection:
             HEREDOC
             @input = gets.strip.downcase
             # binding.pry
@@ -654,7 +807,7 @@ class CLI
                 puts "Goodbye."
             else
                 puts "Please enter a valid selection."
-                sleep 1.5
+                sleep 1.2
             end
         end
     end
@@ -669,7 +822,7 @@ class CLI
             - Type another coutry name to see its full details
             - 0. Return to main menu
 
-                Your selection:
+                Your Selection:
             HEREDOC
             @input = gets.strip.downcase
             case @input
@@ -683,7 +836,7 @@ class CLI
                 puts "Goodbye."
             else
                 puts "Please enter a valid selection."
-                sleep 1.5
+                sleep 1.2
             end
         end
     end

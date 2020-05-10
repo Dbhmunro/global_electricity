@@ -56,6 +56,8 @@ class Scrape
             country = Country.all.find { |country| country.name == row.css("a").text }
             if (country != nil)
                 country.nuclear_fuel_use = row.css("span.subfield-number").text.split(" of")[0]
+                
+                country.non_renewable_use = (country.fossil_fuel_use.to_i + country.nuclear_fuel_use.to_i).to_s + "%"
             end
         end
         
@@ -70,6 +72,8 @@ class Scrape
             country = Country.all.find { |country| country.name == row.css("a").text }
             if (country != nil)
                 country.other_renewable_use = row.css("span.subfield-number").text.split(" of")[0]
+                
+                country.renewable_use = (country.hydroelectric_use.to_i + country.other_renewable_use.to_i).to_s + "%"
             end
         end
         
@@ -134,6 +138,7 @@ class Scrape
                 # end
             end
         end
+
         gdp_sectors_doc.css("tbody tr").each do |row|
             country = Country.all.find { |country| country.name == row.css("a").text }
             if (country != nil)
@@ -154,6 +159,12 @@ class Scrape
                 country.gdp_agriculture = gdp_sectors["agriculture:"]
                 country.gdp_industry = gdp_sectors["industry:"]
                 country.gdp_service = gdp_sectors["services:"]
+
+                if ( Country.all_without_world.find { |c| c.name == country.name })
+                    country.internet_based_gdp_agriculture = ((country.gdp_agriculture.to_f * country.internet_access.to_f)/100).round(1).to_s
+                    country.internet_based_gdp_industry = ((country.gdp_industry.to_f * country.internet_access.to_f)/100).round(1).to_s
+                    country.internet_based_gdp_service = ((country.gdp_service.to_f * country.internet_access.to_f)/100).round(1).to_s
+                end
             end
         end
 

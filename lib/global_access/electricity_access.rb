@@ -4,12 +4,8 @@ module ElectricityAccess
     module ClassMethods
         # these methods will only work in the Country class
 
-        # def self.access_electricity
-        #     self.all_without_world.collect do |country|
-        #     end
-        # end
 
-        def access_alphabetical_sort
+        def electriciy_access_alphabetical_sort_short
             collection = []
             self.all_without_world.sort_by(&:name).collect do |country|
                 row = []
@@ -21,8 +17,62 @@ module ElectricityAccess
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
+            puts "      Population with Access to Electricity"
+            puts "                   (Top 20 List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban         Rural         Country ^ "
+            puts "------------------------------------------------------------"
+            (1..20).each do |n|
+                print " #{collection[n][1]}"
+                if collection[n][1].length == 2
+                    print "            "
+                elsif collection[n][1].length == 3
+                    print "           "
+                elsif collection[n][1].length == 4
+                    print "          "
+                elsif collection[n][1].length == 5
+                    print "         "
+                end
+                print "#{collection[n][2]}"
+                if collection[n][2].length == 2
+                    print "            "
+                elsif collection[n][2].length == 3
+                    print "           "
+                elsif collection[n][2].length == 4
+                    print "          "
+                elsif collection[n][2].length == 5
+                    print "         "
+                end
+                print "#{collection[n][3]}"
+                if collection[n][3].length == 2
+                    print "            "
+                elsif collection[n][3].length == 3
+                    print "           "
+                elsif collection[n][3].length == 4
+                    print "          "
+                elsif collection[n][3].length == 5
+                    print "         "
+                end
+                    puts "#{collection[n][0]}"
+            end
+        end
+
+        def electriciy_access_alphabetical_sort
+            collection = []
+            self.all_without_world.sort_by(&:name).collect do |country|
+                row = []
+                row << country.name
+                row << country.population_electrification
+                row << country.urban_electrification
+                row << country.rural_electrification
+                collection << row
+            end
+            puts ""
+            puts ""
+            puts "      Population with Access to Electricity"
+            puts "                   (Full List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban         Rural         Country ^ "
             puts "------------------------------------------------------------"
             collection.each do |row| #nice to have, add a new column header after so many rows (standard screen height)
                 print " #{row[1]}"
@@ -59,7 +109,7 @@ module ElectricityAccess
             end
         end
 
-        def access_population_sort #nice to have, sub-sort matching values by ascending alphabetical country name order
+        def electriciy_access_population_sort_short #nice to have, sort within equal values alphabetically
             collection = []
             self.all_without_world.sort_by { |country| country.population_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -71,8 +121,62 @@ module ElectricityAccess
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
+            puts "      Population with Access to Electricity"
+            puts "                   (Top 20 List)"
+            puts "------------------------------------------------------------"
+            puts " Total ^       Urban         Rural         Country  "
+            puts "------------------------------------------------------------"
+            (1..20).each do |n|
+                print " #{collection[n][1]}"
+                if collection[n][1].length == 2
+                    print "            "
+                elsif collection[n][1].length == 3
+                    print "           "
+                elsif collection[n][1].length == 4
+                    print "          "
+                elsif collection[n][1].length == 5
+                    print "         "
+                end
+                print "#{collection[n][2]}"
+                if collection[n][2].length == 2
+                    print "            "
+                elsif collection[n][2].length == 3
+                    print "           "
+                elsif collection[n][2].length == 4
+                    print "          "
+                elsif collection[n][2].length == 5
+                    print "         "
+                end
+                print "#{collection[n][3]}"
+                if collection[n][3].length == 2
+                    print "            "
+                elsif collection[n][3].length == 3
+                    print "           "
+                elsif collection[n][3].length == 4
+                    print "          "
+                elsif collection[n][3].length == 5
+                    print "         "
+                end
+                    puts "#{collection[n][0]}"
+            end
+        end
+
+        def electriciy_access_population_sort
+            collection = []
+            self.all_without_world.sort_by { |country| country.population_electrification.to_f }.reverse.collect do |country|
+                row = []
+                row << country.name
+                row << country.population_electrification
+                row << country.urban_electrification
+                row << country.rural_electrification
+                collection << row
+            end
+            puts ""
+            puts ""
+            puts "      Population with Access to Electricity"
+            puts "                   (Full List)"
+            puts "------------------------------------------------------------"
+            puts " Total ^       Urban         Rural         Country  "
             puts "------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
@@ -109,7 +213,7 @@ module ElectricityAccess
             end
         end
 
-        def access_urban_sort
+        def electriciy_access_urban_sort_short
             collection = []
             self.all_without_world.sort_by { |country| country.urban_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -121,8 +225,62 @@ module ElectricityAccess
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
+            puts "      Population with Access to Electricity"
+            puts "                   (Top 20 List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban ^       Rural         Country  "
+            puts "------------------------------------------------------------"
+            (1..20).each do |n|
+                print " #{collection[n][1]}"
+                if collection[n][1].length == 2
+                    print "            "
+                elsif collection[n][1].length == 3
+                    print "           "
+                elsif collection[n][1].length == 4
+                    print "          "
+                elsif collection[n][1].length == 5
+                    print "         "
+                end
+                print "#{collection[n][2]}"
+                if collection[n][2].length == 2
+                    print "            "
+                elsif collection[n][2].length == 3
+                    print "           "
+                elsif collection[n][2].length == 4
+                    print "          "
+                elsif collection[n][2].length == 5
+                    print "         "
+                end
+                print "#{collection[n][3]}"
+                if collection[n][3].length == 2
+                    print "            "
+                elsif collection[n][3].length == 3
+                    print "           "
+                elsif collection[n][3].length == 4
+                    print "          "
+                elsif collection[n][3].length == 5
+                    print "         "
+                end
+                    puts "#{collection[n][0]}"
+            end
+        end
+
+        def electriciy_access_urban_sort
+            collection = []
+            self.all_without_world.sort_by { |country| country.urban_electrification.to_f }.reverse.collect do |country|
+                row = []
+                row << country.name
+                row << country.population_electrification
+                row << country.urban_electrification
+                row << country.rural_electrification
+                collection << row
+            end
+            puts ""
+            puts ""
+            puts "      Population with Access to Electricity"
+            puts "                   (Full List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban ^       Rural         Country  "
             puts "------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
@@ -159,7 +317,7 @@ module ElectricityAccess
             end
         end
 
-        def access_rural_sort
+        def electriciy_access_rural_sort_short
             collection = []
             self.all_without_world.sort_by { |country| country.rural_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -171,8 +329,62 @@ module ElectricityAccess
             end
             puts ""
             puts ""
-            puts "      Population with access to electricity"
-            puts " Total         Urban         Rural         Country "
+            puts "      Population with Access to Electricity"
+            puts "                   (Top 20 List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban         Rural ^       Country  "
+            puts "------------------------------------------------------------"
+            (1..20).each do |n|
+                print " #{collection[n][1]}"
+                if collection[n][1].length == 2
+                    print "            "
+                elsif collection[n][1].length == 3
+                    print "           "
+                elsif collection[n][1].length == 4
+                    print "          "
+                elsif collection[n][1].length == 5
+                    print "         "
+                end
+                print "#{collection[n][2]}"
+                if collection[n][2].length == 2
+                    print "            "
+                elsif collection[n][2].length == 3
+                    print "           "
+                elsif collection[n][2].length == 4
+                    print "          "
+                elsif collection[n][2].length == 5
+                    print "         "
+                end
+                print "#{collection[n][3]}"
+                if collection[n][3].length == 2
+                    print "            "
+                elsif collection[n][3].length == 3
+                    print "           "
+                elsif collection[n][3].length == 4
+                    print "          "
+                elsif collection[n][3].length == 5
+                    print "         "
+                end
+                    puts "#{collection[n][0]}"
+            end
+        end
+
+        def electriciy_access_rural_sort
+            collection = []
+            self.all_without_world.sort_by { |country| country.rural_electrification.to_f }.reverse.collect do |country|
+                row = []
+                row << country.name
+                row << country.population_electrification
+                row << country.urban_electrification
+                row << country.rural_electrification
+                collection << row
+            end
+            puts ""
+            puts ""
+            puts "      Population with Access to Electricity"
+            puts "                   (Full List)"
+            puts "------------------------------------------------------------"
+            puts " Total         Urban         Rural ^       Country  "
             puts "------------------------------------------------------------"
             collection.each do |row|
                 print " #{row[1]}"
@@ -208,11 +420,5 @@ module ElectricityAccess
                     puts "#{row[0]}"
             end
         end
-
-        # def access_print #should only be called on methods that create collections
-        #     self.access_alphabetical_sort.each do |row|
-        #         puts "#{row}"
-        #     end
-        # end
     end
 end

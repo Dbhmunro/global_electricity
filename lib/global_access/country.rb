@@ -8,7 +8,7 @@ class Country
     extend ElectricityAccess::ClassMethods
     extend ElectricitySources::ClassMethods
 
-    attr_accessor :name, :population, :internet_access, :broadband_access, :population_electrification, :urban_electrification, :rural_electrification, :fossil_fuel_use, :hydroelectric_use, :nuclear_fuel_use, :other_renewable_use, :gdp_agriculture, :gdp_industry, :gdp_service
+    attr_accessor :name, :population, :internet_access, :broadband_access, :population_electrification, :urban_electrification, :rural_electrification, :fossil_fuel_use, :hydroelectric_use, :nuclear_fuel_use, :other_renewable_use, :non_renewable_use, :renewable_use, :gdp_agriculture, :gdp_industry, :gdp_service, :internet_based_gdp_agriculture, :internet_based_gdp_industry, :internet_based_gdp_service
     @@all = []
 
     def initialize
@@ -20,7 +20,7 @@ class Country
     end
 
     def self.all_without_world
-        @@all.select { |country| (country.name != "World" && country.name != "Curacao" && country.name != "Gaza Strip" && country.name != "Guernsey" && country.name != "Isle of Man" && country.name != "Jersey" && country.name != "Liechtenstein" && country.name != "Monaco" && country.name != "Northern Mariana Islands" && country.name != "Palau" && country.name != "Saint Martin" && country.name != "San Marino" && country.name != "Sint Maarten" && country.name != "Korea, North" && country.name != "South Sudan" && country.name != "American Samoa"  && country.name != "Aruba"  && country.name != "Bermuda"  && country.name != "Congo, Republic of the"  && country.name != "Guam"  && country.name != "Kosovo"  && country.name != "New Caledonia" && country.name != "Palau" && country.name != "Sierra Leone"  && country.name != "Turks and Caicos Islands"  && country.name != "Virgin Islands") }
+        @@all.select { |country| (country.name != "World" && country.name != "Curacao" && country.name != "Gaza Strip" && country.name != "Guernsey" && country.name != "Isle of Man" && country.name != "Jersey" && country.name != "Liechtenstein" && country.name != "Monaco" && country.name != "Northern Mariana Islands" && country.name != "Palau" && country.name != "Saint Martin" && country.name != "San Marino" && country.name != "Sint Maarten" && country.name != "Korea, North" && country.name != "South Sudan" && country.name != "American Samoa"  && country.name != "Aruba"  && country.name != "Bermuda"  && country.name != "Congo, Republic of the"  && country.name != "Guam"  && country.name != "Kosovo"  && country.name != "New Caledonia" && country.name != "Palau" && country.name != "Sierra Leone"  && country.name != "Turks and Caicos Islands"  && country.name != "Virgin Islands" && country.name != "Tuvalu") }
         #exclude list built based on countries that lacked data
     end
 
@@ -44,6 +44,7 @@ class Country
         end
     end
 
+    def self.present_country(country_name)
+    end
 
-    
 end
