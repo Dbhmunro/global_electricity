@@ -50,8 +50,21 @@ class Country
         end
     end
 
-    def self.present_country(country_name)
-        puts "#{country_name}"
+    def self.present_country(country_n)
+        if (country_n.to_i.between?(1, (Country.all_without_world.length)))
+            country = self.all_without_world[country_n.to_i - 1]
+        else
+            country = self.all_without_world.find { |c| c.name.downcase == country_n }
+        end
+        puts <<~HEREDOC
+            
+            #{country.name}
+        
+            Population's Internet Access: #{country.internet_access} with #{country.broadband_access} of the population having broadband
+            Population's Electricity Access: #{country.population_electrification} with #{country.urban_electrification} access in Urban Areas and #{country.rural_electrification} access in Rural Areas
+            Electricity Generation: #{country.fossil_fuel_use} Fossil Fuels  #{country.nuclear_fuel_use} Nuclear Fuels  #{country.hydroelectric_use} Hydroelectric Power  #{country.other_renewable_use} Other Renewable Energies
+            %GDP, by Sector: #{country.gdp_agriculture} Agriculture  #{country.gdp_industry} Industry  #{country.gdp_service} Service
+        HEREDOC
     end
 
 end

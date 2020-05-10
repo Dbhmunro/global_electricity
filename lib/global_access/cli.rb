@@ -9,10 +9,10 @@ class CLI
     end
     
     def scrape # implement system "clear" after development
-        # system "clear"
+        system "clear"
         puts "Please wait while we collect your data..."
         Scrape.new
-        # system "clear"
+        system "clear"
     end
 
     def welcome
@@ -45,10 +45,13 @@ class CLI
     end
 
     def menu
+        #ought to have, better descriptions for the data
+        #ought to have, improved introduction
         #nice to have, add ability for partial country search, starts with or contains
         #nice to have, system "clear" between lists, but not when calling up specific country details
         #nice to have, in tables, sub-sort equal values alphabetically
         #nice to have, make country names first column in all tables while preserving table shape
+        #nice to have, more stylized menus and tables
         while @input != "exit"
             puts <<~HEREDOC
                
@@ -1927,6 +1930,7 @@ class CLI
 
                 Your Selection:
             HEREDOC
+            prev_input = @input
             @input = gets.strip.downcase
             case @input
             when "1"
@@ -1938,6 +1942,7 @@ class CLI
             when "exit"
                 puts "Goodbye."
             else
+                @input = prev_input
                 puts "Please enter a valid selection."
                 sleep 1.2
             end
