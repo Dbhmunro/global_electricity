@@ -1,12 +1,18 @@
+# require_relative '../global_access.rb'
 require_relative './electricity_access.rb'
 require_relative './electricity_sources.rb'
 require_relative './internet_access.rb'
-
+require_relative './gdp_composition.rb'
+require_relative './internet_and_energy.rb'
+require_relative './internet_by_gdp.rb'
 
 class Country
     extend InternetAccess::ClassMethods
     extend ElectricityAccess::ClassMethods
     extend ElectricitySources::ClassMethods
+    extend GdpComposition::ClassMethods
+    extend InternetAndEnergy::ClassMethods
+    extend InternetByGDP::ClassMethods
 
     attr_accessor :name, :population, :internet_access, :broadband_access, :population_electrification, :urban_electrification, :rural_electrification, :fossil_fuel_use, :hydroelectric_use, :nuclear_fuel_use, :other_renewable_use, :non_renewable_use, :renewable_use, :gdp_agriculture, :gdp_industry, :gdp_service, :internet_based_gdp_agriculture, :internet_based_gdp_industry, :internet_based_gdp_service
     @@all = []
@@ -28,7 +34,7 @@ class Country
         self.all.find { |c| c.name == country}
     end
 
-    def self.country_names
+    def self.country_names_for_search
         self.all_without_world.map(&:name).map { |e| e.downcase}
         # binding.pry
     end
@@ -45,6 +51,7 @@ class Country
     end
 
     def self.present_country(country_name)
+        puts "#{country_name}"
     end
 
 end

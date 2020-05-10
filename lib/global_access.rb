@@ -9,8 +9,9 @@ require_relative './global_access/internet_access'
 require_relative './global_access/electricity_access'
 require_relative './global_access/electricity_sources'
 require_relative './global_access/gdp_composition'
+require_relative './global_access/internet_and_energy'
+require_relative './global_access/internet_by_gdp'
 
-require_relative './global_access/analysis_of_access'
 
 require_relative './global_access/scraper'
 

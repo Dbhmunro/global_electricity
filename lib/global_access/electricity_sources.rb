@@ -3,7 +3,9 @@ require_relative './country.rb'
 module ElectricitySources
     module ClassMethods
         # these methods will only work in the Country class
+        # variables fossil_fuel_use, nuclear_fuel_use, hydroelectric_use, other_renewable_use
 
+        
         def electricity_sources_alphabetical_sort_short
             collection = []
             self.all_without_world.sort_by(&:name).collect do |country|

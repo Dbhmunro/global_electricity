@@ -3,9 +3,10 @@ require_relative './country.rb'
 module ElectricityAccess
     module ClassMethods
         # these methods will only work in the Country class
+        # variables population_electrification, urban_electrification, rural_electrification
 
 
-        def electriciy_access_alphabetical_sort_short
+        def electricity_access_alphabetical_sort_short
             collection = []
             self.all_without_world.sort_by(&:name).collect do |country|
                 row = []
@@ -57,7 +58,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_alphabetical_sort
+        def electricity_access_alphabetical_sort
             collection = []
             self.all_without_world.sort_by(&:name).collect do |country|
                 row = []
@@ -109,7 +110,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_population_sort_short #nice to have, sort within equal values alphabetically
+        def electricity_access_population_sort_short
             collection = []
             self.all_without_world.sort_by { |country| country.population_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -161,7 +162,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_population_sort
+        def electricity_access_population_sort
             collection = []
             self.all_without_world.sort_by { |country| country.population_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -213,7 +214,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_urban_sort_short
+        def electricity_access_urban_sort_short
             collection = []
             self.all_without_world.sort_by { |country| country.urban_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -265,7 +266,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_urban_sort
+        def electricity_access_urban_sort
             collection = []
             self.all_without_world.sort_by { |country| country.urban_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -317,7 +318,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_rural_sort_short
+        def electricity_access_rural_sort_short
             collection = []
             self.all_without_world.sort_by { |country| country.rural_electrification.to_f }.reverse.collect do |country|
                 row = []
@@ -369,7 +370,7 @@ module ElectricityAccess
             end
         end
 
-        def electriciy_access_rural_sort
+        def electricity_access_rural_sort
             collection = []
             self.all_without_world.sort_by { |country| country.rural_electrification.to_f }.reverse.collect do |country|
                 row = []
