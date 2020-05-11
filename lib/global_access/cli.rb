@@ -21,15 +21,14 @@ class CLI
             Welcome to Global Access to Technology Statistics
 
             ~Your statistical data on internet, energy, and economy
-            Finding the countries that have larger percentages of internet and electricity access
-            and help you determine the primary economic sector to target for your web application development
-            or find the countries with largest percentage of economic sector 
-            With the energy data you can make informed decisions on engaging with green markets
-            Looking for a target market for renewable energy companies looking for markets with high internet access and low current renewable energy use
-            
+            Providing the data you need to find the right countries to market your web applications
+
+            We help you find the countries who have the internet access needed and
+            have the right primary economic sector for the target of your application
+            We also help you make decisions when looking for green energy markets
+
 
             
-
             - #{Country.select_country("World").population_electrification} - Of the world's population has access to electricity
             -   #{Country.select_country("World").urban_electrification} are urban areas
             -   #{Country.select_country("World").rural_electrification} are rural areas
@@ -70,7 +69,6 @@ class CLI
             @input = gets.strip.downcase
             case @input
             when "1"
-                puts "Access to internet"
                 access_to_internet
             when "2"
                 access_to_electricity
