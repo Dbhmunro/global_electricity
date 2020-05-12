@@ -3,17 +3,35 @@ require_relative "../global_access"
 class Scrape
     
     def initialize
-        electricity_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/251.html#XX"))
-        fossil_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/257.html#XX"))
-        nuclear_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/258.html#XX"))
-        hydroelectric_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/259.html#XX"))
-        other_renewable_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/260.html#XX"))
-        internet_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/204.html#XX"))
-        broadband_internet_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/206.html#XX"))
-        gdp_sectors_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/214.html#XX"))
-        population_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/fields/335.html#XX"))
-        # global_doc not necessary in the end
-        # global_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/geos/xx.html"))
+        global_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook/geos/xx.html"))
+        #collect the field number to be used for scraping each page
+
+        html_hash = {}
+        global_doc.css("div.category.oce_light").each do |header_row|
+            # binding.pry
+            key = header_row.css("a").first.text
+            value = header_row.css("span.field-listing-link a").attribute("href").value[2..]
+            html_hash[key] = value
+        end
+
+        electricity_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Electricity access"]}"))
+        # /fields/251.html#XX
+        fossil_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Electricity - from fossil fuels"]}"))
+        # /fields/257.html#XX
+        nuclear_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Electricity - from nuclear fuels"]}"))
+        # /fields/258.html#XX
+        hydroelectric_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Electricity - from hydroelectric plants"]}"))
+        # /fields/259.html#XX
+        other_renewable_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Electricity - from other renewable sources"]}"))
+        # /fields/260.html#XX
+        internet_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Internet users"]}"))
+        # /fields/204.html#XX
+        broadband_internet_access_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Broadband - fixed subscriptions"]}"))
+        # /fields/206.html#XX
+        gdp_sectors_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["GDP - composition, by sector of origin"]}"))
+        # /fields/214.html#XX
+        population_doc = Nokogiri::HTML(open("https://www.cia.gov/library/publications/the-world-factbook#{html_hash["Population"]}"))
+        # /fields/335.html#XX
         
 
         electricity_access_doc.css("tbody tr").each do |row|
@@ -83,7 +101,7 @@ class Scrape
                 if (row.css("span.subfield-number").last != nil)
                     country.internet_access = row.css("span.subfield-number").last.text
                 else
-                    country.internet_access = row.css("span.subfield-note").last.text + "%"
+                    country.internet_access = row.css("span.subfield-note").last.text
                 end
             end
         end

@@ -1,7 +1,6 @@
 class CLI
 
     def call
-        # methods for program
         scrape
         welcome
         menu
@@ -18,26 +17,33 @@ class CLI
     def welcome
         puts <<~HEREDOC
 
-            Welcome to Global Access to Technology Statistics
+            Welcome to Global Access to Technology Statistics!
 
             ~Your statistical data on internet, energy, and economy
             Providing the data you need to find the right countries to market your web applications
 
             We help you find the countries who have the internet access needed and
-            have the right primary economic sector for the target of your application
-            We also help you make decisions when looking for green energy markets
-
+            have the right primary economic sector for the target of your application.
+            We also help you make decisions when looking for green energy markets.
 
             
-            - #{Country.select_country("World").population_electrification} - Of the world's population has access to electricity
-            -   #{Country.select_country("World").urban_electrification} are urban areas
-            -   #{Country.select_country("World").rural_electrification} are rural areas
+            Global Access to Internet:
+            #{Country.select_country("World").internet_access} Of the Population
+            -  #{Country.select_country("World").broadband_access} Population with Broadband Access
 
-            World's energy sources are currently:
-            #{Country.select_country("World").fossil_fuel_use} fossil fuels
-            #{Country.select_country("World").nuclear_fuel_use} nuclear fuels
-            #{Country.select_country("World").hydroelectric_use} hydroelectric
-            #{Country.select_country("World").other_renewable_use} other renewable sources
+            Global Access to Electricity:
+            #{Country.select_country("World").population_electrification} Of the Population
+            -  #{Country.select_country("World").urban_electrification} Are Urban Areas
+            -  #{Country.select_country("World").rural_electrification} Are Rural Areas
+
+            Global Energy Sources are Currently:
+            #{Country.select_country("World").fossil_fuel_use} Fossil Fuels
+            #{Country.select_country("World").nuclear_fuel_use} Nuclear Fuels
+            #{Country.select_country("World").hydroelectric_use} Hydroelectric
+            #{Country.select_country("World").other_renewable_use} Other Renewable Sources
+
+            Global % Gross Domestic Product(GDP), by Sector:
+            #{Country.select_country("World").gdp_agriculture} Agriculture - #{Country.select_country("World").gdp_industry} Industry - #{Country.select_country("World").gdp_service} Service
             
         HEREDOC
         @input = nil
